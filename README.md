@@ -89,14 +89,15 @@ fetch('/api/v1/tree');
 
 ## Your notes
 
-- used material library - never used it before, and always tried to try it out, so decided this would be a good chance to test how it works
-- most of the time I work with relay/graphql, so also wanted to try some fetching/state handling libraries for react, decided to give `react-fetching-library` a chance
-- on client decided not to load all tree right away, and only fetch items which we try to open, as a result server side had to be adjusted a bit
-- updated server a bit:
-  - updated it to be Typescript
-  - created flat tree structure (DB Like)
-  - added additional route to provide client side flat tree structure
-  - `:parentId` url parameter added to fetch tree items belonging to certain parent
-- started at around 10:30AM finished ad 13:35
-- in general task was not too difficult as all the initial set up was provided
-- had a plenty of room of not only doing the task but testing new things for myself (`@mui/material`, `react-fetching-library`)
+_Disclaimer: When I was given this repository, all of the user stories have been implemented except for the folder main window feature of 3 and all of 4._ 
+
+- I chose to work on the following two stories: 
+
+> Story 1: Complete user stories 3 & 4  
+> Story 2: Allow the user to go 'back' to a previously selected file/folder
+
+- I've never used Material UI before but found it super intuitive
+- I believe I would've had an easier time completing this assignment if I did the whole thing from the beginning, but I was still able to understand the code. I decided to change a few things when solving, including the API response format and passing states. 
+- It took me around 3 hours to get the main folder children to appear as a grid on the main window, and an additional hour to get directory expansion to work with it after rearranging code. It then took me 3-4 more hours to get the history to work, and to resolve edge cases that I ran into. A lot of this time went into extra small details, like allowing the back button to collapse folders and allowing for deselection of files/folders. Had I skipped these extra features, a few hours would've been saved. **Total time: 8-9 hours**
+- I'll admit that before this assignment I've been a bit rusty with React, so it took me a bit longer to complete. However, after spending a good amount of time refreshing my knowledge over the last few days, I believe I would now have been  able to complete this assignment in a fraction of the time. 
+- I found this to be an overall well-balanced assignment.
