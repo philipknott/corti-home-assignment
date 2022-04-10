@@ -40,7 +40,9 @@ export const NavigationItems = ({ items }: { items: TreeLeafType[] | undefined }
 
   return (
     <>
-      {items?.map(item => renderTree(item))}
+      {items!
+        .sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1)
+        .map(item => renderTree(item))}
     </>
   )
 };

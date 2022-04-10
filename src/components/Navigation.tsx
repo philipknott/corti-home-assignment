@@ -38,8 +38,6 @@ export const Navigation = ({
     return <Alert severity="error">Failed to load!</Alert>;
   }
 
-  items?.sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1)
-
   const handleNodeSelect = (event: React.SyntheticEvent, nodeId: string) => {
     if (nodeId === previousSelectedFileId.current) {
       setSelectedFile(null)
