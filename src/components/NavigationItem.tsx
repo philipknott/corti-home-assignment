@@ -26,9 +26,7 @@ export const NavigationItem = ({ item }: { item: FlatDataType }) => {
       label={item.name}
       icon={icon}
       onClick={() => {
-        if (item.type !== 'folder') {
-          appContext.setSelectedFile(item);
-        }
+        appContext.setSelectedFile(item);
       }}
     >
       {item.type === 'folder' && <NavigationItems itemId={item.id} />}

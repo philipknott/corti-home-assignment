@@ -5,6 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import { GridNavigationItems } from './GridNavigationItems'
 
 import { AppContext } from '../AppContext';
 
@@ -17,7 +18,7 @@ export const Preview = () => {
         Preview
       </Typography>
 
-      {selectedFile && (
+      {(selectedFile?.type === 'image' || selectedFile?.type === 'doc') && (
         <List sx={{ width: '100%', maxWidth: 360 }}>
           <ListItem alignItems="flex-start">
             <ListItemText primary="Name" secondary={selectedFile.name} />
@@ -27,6 +28,13 @@ export const Preview = () => {
             <ListItemText primary="type" secondary={selectedFile.type} />
           </ListItem>
         </List>
+      )}
+
+      {selectedFile?.type === 'folder' && (
+        <div>
+          <p>{selectedFile.name}</p>
+          <GridNavigationItems itemId={selectedFile.id} />
+        </div>
       )}
     </Box>
   );
