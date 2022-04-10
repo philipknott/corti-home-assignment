@@ -24,6 +24,10 @@ export const GridNavigationItems = ({ itemId }: { itemId: string }) => {
     if (error) {
         return <Alert severity="error">Failed to load!</Alert>;
     }
+    
+    if (!items || items.length === 0) {
+        return <p style={{color: 'grey'}}>No Folder Content</p>
+    }
 
     return (
         <Grid container spacing={2}>
