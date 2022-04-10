@@ -5,6 +5,7 @@ import InsertDriveFile from '@mui/icons-material/InsertDriveFileOutlined';
 import { TreeLeafType } from '../../types/types';
 
 export const NavigationItems = ({ items }: { items: TreeLeafType[] | undefined }) => {
+  /* Recursively creates TreeItems on files and files within folders. */
   const renderTree = (item: TreeLeafType) => {
     let icon = null
     switch (item.type) {
