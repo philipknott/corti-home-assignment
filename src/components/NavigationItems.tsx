@@ -1,42 +1,18 @@
-import Alert from '@mui/material/Alert';
-import { Action, useQuery } from 'react-fetching-library';
-import LinearProgress from '@mui/material/LinearProgress';
 import TreeItem from '@mui/lab/TreeItem';
-import { FlatDataType } from '../../types/types';
-import { NavigationItem } from './NavigationItem';
+import { TreeLeafType } from '../../types/types';
 
-export const NavigationItems = ({ itemId }: { itemId: string }) => {
-  const getNavigationTree: Action = {
-    method: 'GET',
-    endpoint: `/api/v1/tree-flat/${itemId}`,
-  };
-
-  const {
-    payload: items,
-    loading,
-    error,
-  } = useQuery<FlatDataType[]>(getNavigationTree);
-
-  if (loading) {
-    return <LinearProgress />;
-  }
-
-  if (error) {
-    return <Alert severity="error">Failed to load!</Alert>;
+export const NavigationItems = ({ items }: { items: TreeLeafType[] | undefined }) => {
+  const renderTree = (item: TreeLeafType) => {
+    return (
+      <TreeItem key={item.id} nodeId={item.id} label={item.name}>
+        {item.children && item.children.map(child => renderTree(child))}
+      </TreeItem>
+    )
   }
 
   return (
     <>
-      {items?.map((item) => {
-        return <NavigationItem key={item.id} item={item} />;
-      })}
-      {!items?.length && (
-        <TreeItem
-          nodeId={itemId + 'no-content'}
-          label={'No Content'}
-          disabled
-        />
-      )}
+      {items?.map(item => renderTree(item))}
     </>
-  );
+  )
 };

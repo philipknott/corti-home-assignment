@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import InsertDriveFile from '@mui/icons-material/InsertDriveFileOutlined';
 import Image from '@mui/icons-material/ImageOutlined';
 import FolderIcon from '@mui/icons-material/Folder';
-import Button from "@mui/material/Button"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 

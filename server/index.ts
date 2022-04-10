@@ -28,7 +28,7 @@ constructFlatData(data.response, null);
 
 app.get('/api/v1/tree', (_, res) => {
   setTimeout(() => {
-    res.json(data);
+    res.json(data.response);
   }, 300);
 });
 
