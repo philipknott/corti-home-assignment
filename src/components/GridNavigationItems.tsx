@@ -3,11 +3,10 @@ import { TreeLeafType } from '../../types/types';
 import { GridNavigationItem } from './GridNavigationItem';
 
 export const GridNavigationItems = ({
-    selectedFile, setSelectedFile, setExpanded
+    selectedFile, setSelectedFile
 }: {
     selectedFile: TreeLeafType,
-    setSelectedFile: (payload: TreeLeafType) => void,
-    setExpanded: (payload: string[]) => void
+    setSelectedFile: (payload: TreeLeafType) => void
 }) => {
     return (
         <Grid container spacing={2}>
@@ -16,7 +15,6 @@ export const GridNavigationItems = ({
                     key={item.id}
                     item={item}
                     setSelectedFile={setSelectedFile}
-                    setExpanded={setExpanded}
                 />
             ))}
             {selectedFile.children?.length === 0 && (

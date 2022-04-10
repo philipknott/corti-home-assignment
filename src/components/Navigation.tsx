@@ -8,15 +8,16 @@ import LinearProgress from '@mui/material/LinearProgress'
 
 import { TreeLeafType } from '../../types/types';
 import { NavigationItems } from './NavigationItems';
+import { useRef, useState } from 'react';
 
 export const Navigation = ({
-  setSelectedFile,
-  expanded,
-  setExpanded }: {
-    setSelectedFile: (payload: TreeLeafType) => void,
-    expanded: string[],
-    setExpanded: (payload: string[]) => void
+  selectedFile,
+  setSelectedFile }: {
+    selectedFile: TreeLeafType | null,
+    setSelectedFile: (payload: TreeLeafType | null) => void
   }) => {
+  const [expanded, setExpanded] = useState<string[]>([])
+  const previousSelectedFileId = useRef('')
 
   const getNavigationTree: Action = {
     method: 'GET',
@@ -40,18 +41,28 @@ export const Navigation = ({
   items?.sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1)
 
   const handleNodeSelect = (event: React.SyntheticEvent, nodeId: string) => {
-    const getItemFromId = (items: TreeLeafType[], id: string): TreeLeafType | undefined => {
-      for (const item of items) {
-        if (item.id === id) { return item; }
-        if (item.type === 'folder') {
-          const recItem = getItemFromId(item.children, id)
-          if (recItem) return recItem
+    if (nodeId === previousSelectedFileId.current) {
+      setSelectedFile(null)
+      previousSelectedFileId.current = ''
+    } else {
+      const getItemFromId = (items: TreeLeafType[], id: string): TreeLeafType | undefined => {
+        for (const item of items) {
+          if (item.id === id) { return item; }
+          if (item.type === 'folder') {
+            const recItem = getItemFromId(item.children, id)
+            if (recItem) return recItem
+          }
         }
+        return undefined
       }
-      return undefined
+      const item = getItemFromId(items!, nodeId)
+      setSelectedFile(item!)
+      previousSelectedFileId.current = item!.id
     }
-    const item = getItemFromId(items!, nodeId)
-    setSelectedFile(item!)
+  }
+
+  if (selectedFile?.type === 'folder' && !expanded.includes(selectedFile.id)) {
+    setExpanded([...expanded, selectedFile.id])
   }
 
   return (
@@ -61,6 +72,7 @@ export const Navigation = ({
         defaultCollapseIcon={<FolderOpen />}
         defaultExpandIcon={<Folder />}
         onNodeSelect={handleNodeSelect}
+        selected={undefined}
         onNodeToggle={(_, ids) => setExpanded(ids)}
         expanded={expanded}
       >

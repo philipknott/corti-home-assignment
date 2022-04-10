@@ -7,11 +7,10 @@ import Box from "@mui/material/Box"
 import { TreeLeafType } from '../../types/types';
 
 export const GridNavigationItem = ({
-    item, setSelectedFile, setExpanded
+    item, setSelectedFile
 }: {
     item: TreeLeafType,
     setSelectedFile: (payload: TreeLeafType) => void,
-    setExpanded: (payload: string[]) => void
 }) => {
     let icon = null;
     switch (item.type) {

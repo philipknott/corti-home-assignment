@@ -9,14 +9,13 @@ import { GridNavigationItems } from './GridNavigationItems'
 import { TreeLeafType } from '../../types/types';
 
 export const Preview = ({
-  selectedFile, setSelectedFile, setExpanded
+  selectedFile, setSelectedFile
 }: {
   selectedFile: TreeLeafType | null,
-  setSelectedFile: (payload: TreeLeafType) => void,
-  setExpanded: (payload: string[]) => void
+  setSelectedFile: (payload: TreeLeafType) => void
 }) => {
   return (
-    <Box sx={{ padding: '20px' }}>
+    <Box sx={{ padding: '20px' }} overflow='scroll'>
       <Typography variant="h2" component="h2">
         Preview
       </Typography>
@@ -38,8 +37,7 @@ export const Preview = ({
           <p>{selectedFile.name}</p>
           <GridNavigationItems
             selectedFile={selectedFile}
-            setSelectedFile={setSelectedFile}
-            setExpanded={setExpanded} />
+            setSelectedFile={setSelectedFile} />
         </div>
       )}
     </Box>

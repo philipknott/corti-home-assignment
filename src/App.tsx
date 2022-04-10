@@ -10,7 +10,6 @@ import { Preview } from './components/Preview';
 
 export const App = () => {
   const [selectedFile, setSelectedFile] = useState<TreeLeafType | null>(null);
-  const [expanded, setExpanded] = useState<Array<string>>([])
 
   return (
     <Box
@@ -39,13 +38,11 @@ export const App = () => {
         }}
       >
         <Navigation
-          setSelectedFile={setSelectedFile}
-          expanded={expanded}
-          setExpanded={setExpanded} />
+          selectedFile={selectedFile}
+          setSelectedFile={setSelectedFile} />
         <Preview
           selectedFile={selectedFile}
-          setSelectedFile={setSelectedFile}
-          setExpanded={setExpanded} />
+          setSelectedFile={setSelectedFile} />
       </Box>
     </Box>
   );
