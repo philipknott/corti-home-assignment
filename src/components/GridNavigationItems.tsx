@@ -1,39 +1,27 @@
 import Grid from '@mui/material/Grid'
-import { FlatDataType } from '../../types/types';
-import { Action, useQuery } from 'react-fetching-library';
-import LinearProgress from '@mui/material/LinearProgress';
-import Alert from '@mui/material/Alert';
+import { TreeLeafType } from '../../types/types';
 import { GridNavigationItem } from './GridNavigationItem';
 
-export const GridNavigationItems = ({ itemId }: { itemId: string }) => {
-    const getNavigationTree: Action = {
-        method: 'GET',
-        endpoint: `/api/v1/tree-flat/${itemId}`,
-    };
-
-    const {
-        payload: items,
-        loading,
-        error,
-    } = useQuery<FlatDataType[]>(getNavigationTree);
-
-    if (loading) {
-        return <LinearProgress />;
-    }
-
-    if (error) {
-        return <Alert severity="error">Failed to load!</Alert>;
-    }
-    
-    if (!items || items.length === 0) {
-        return <p style={{color: 'grey'}}>No Folder Content</p>
-    }
-
+export const GridNavigationItems = ({
+    selectedFile, setSelectedFile, setExpanded
+}: {
+    selectedFile: TreeLeafType,
+    setSelectedFile: (payload: TreeLeafType) => void,
+    setExpanded: (payload: string[]) => void
+}) => {
     return (
         <Grid container spacing={2}>
-            {items?.map((item) => {
-                return <GridNavigationItem key={item.id} item={item} />;
-            })}
+            {selectedFile.children?.map(item => (
+                <GridNavigationItem
+                    key={item.id}
+                    item={item}
+                    setSelectedFile={setSelectedFile}
+                    setExpanded={setExpanded}
+                />
+            ))}
+            {selectedFile.children?.length === 0 && (
+                <p style={{ color: 'grey' }}>No Folder Content</p>
+            )}
         </Grid>
-    );
+    )
 }

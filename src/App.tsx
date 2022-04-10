@@ -4,45 +4,49 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-import { FlatDataType } from '../types/types';
+import { TreeLeafType } from '../types/types';
 import { Navigation } from './components/Navigation';
 import { Preview } from './components/Preview';
-import { AppContext } from './AppContext';
 
 export const App = () => {
-  const [selectedFile, setSelectedFile] = useState<FlatDataType | null>(null);
+  const [selectedFile, setSelectedFile] = useState<TreeLeafType | null>(null);
+  const [expanded, setExpanded] = useState<Array<string>>([])
 
   return (
-    <AppContext.Provider value={{ selectedFile, setSelectedFile }}>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr',
+        height: '100%',
+        overflow: 'hidden',
+      }}
+    >
+      <AppBar position="sticky">
+        <Toolbar variant="regular">
+          <Typography component="h1" variant="h6" color="inherit" noWrap>
+            Home Assignment
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <Box
         sx={{
           display: 'grid',
-          gridTemplateRows: 'auto 1fr',
+          gridTemplateColumns: 'minmax(300px, auto) 1fr',
+          gridGap: '20px',
           height: '100%',
           overflow: 'hidden',
+          boxSizing: 'border-box',
         }}
       >
-        <AppBar position="sticky">
-          <Toolbar variant="regular">
-            <Typography component="h1" variant="h6" color="inherit" noWrap>
-              Home Assignment
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(300px, auto) 1fr',
-            gridGap: '20px',
-            height: '100%',
-            overflow: 'hidden',
-            boxSizing: 'border-box',
-          }}
-        >
-          <Navigation />
-          <Preview />
-        </Box>
+        <Navigation
+          setSelectedFile={setSelectedFile}
+          expanded={expanded}
+          setExpanded={setExpanded} />
+        <Preview
+          selectedFile={selectedFile}
+          setSelectedFile={setSelectedFile}
+          setExpanded={setExpanded} />
       </Box>
-    </AppContext.Provider>
+    </Box>
   );
 };

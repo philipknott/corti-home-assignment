@@ -1,8 +1,15 @@
 import { createContext } from 'react';
 
-import { FlatDataType } from '../types/types';
+import { TreeLeafType } from '../types/types';
 
 export const AppContext = createContext<{
-  selectedFile: FlatDataType | null;
-  setSelectedFile: (payload: FlatDataType | null) => void;
-}>({ selectedFile: null, setSelectedFile: () => {} });
+  selectedFile: TreeLeafType | null;
+  setSelectedFile: (payload: TreeLeafType | null) => void;
+  expanded: string[];
+  setExpanded: (payload: string[]) => void;
+}>({
+  selectedFile: null,
+  setSelectedFile: () => { },
+  expanded: [],
+  setExpanded: () => { }
+});
