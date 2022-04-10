@@ -23,7 +23,10 @@ export const NavigationItems = ({ items }: { items: TreeLeafType[] | undefined }
         label={item.name}
         icon={icon}
       >
-        {item.type === 'folder' && item.children.map(child => renderTree(child))}
+        {item.type === 'folder' && item.children
+          .sort((a, b) => (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1)
+          .map(child => renderTree(child))}
+
         {item.children?.length === 0 && (
           <TreeItem
             nodeId={item.id + 'no-content'}
